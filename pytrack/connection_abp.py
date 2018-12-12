@@ -20,7 +20,7 @@ class Connection:
         # Europe = LoRa.EU868
         # United States = LoRa.US915
         self.Lora = LoRa(mode=LoRa.LORAWAN, region=LoRa.EU868)
-        # join a network using ABP (Activation By Personalization)
+        # join a network using ABP
         self.Lora.join(activation=LoRa.ABP, auth=(self.Dev_addr, self.Nwk_swkey, self.App_swkey))
         # create a LoRa socket
         self.Socket = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
@@ -33,5 +33,6 @@ class Connection:
     def receive(self):
         return self.Socket.recv(64)
 
-    def send(self):
-        self.Socket.send(bytes([0x01, 0x02, 0x03]))
+    def send(self, coordinates):
+        strCoordinates = str(coordinates)
+        self.Socket.send(strCoordinates)
