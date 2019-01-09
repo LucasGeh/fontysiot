@@ -16,7 +16,6 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLCDNumber>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -35,8 +34,6 @@ public:
     QComboBox *selectPallet;
     QLCDNumber *palletID1;
     QLCDNumber *palletID2;
-    QLabel *pallet1Label;
-    QLabel *pallet2Label;
     QTableWidget *tableWidget;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -61,15 +58,9 @@ public:
         palletID2 = new QLCDNumber(centralWidget);
         palletID2->setObjectName(QStringLiteral("palletID2"));
         palletID2->setGeometry(QRect(280, 150, 64, 23));
-        pallet1Label = new QLabel(centralWidget);
-        pallet1Label->setObjectName(QStringLiteral("pallet1Label"));
-        pallet1Label->setGeometry(QRect(20, 180, 81, 51));
-        pallet2Label = new QLabel(centralWidget);
-        pallet2Label->setObjectName(QStringLiteral("pallet2Label"));
-        pallet2Label->setGeometry(QRect(270, 180, 81, 51));
         tableWidget = new QTableWidget(centralWidget);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setGeometry(QRect(220, 30, 251, 81));
+        tableWidget->setGeometry(QRect(220, 30, 211, 61));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -91,12 +82,6 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         findPallet->setText(QApplication::translate("MainWindow", "Find Pallet", Q_NULLPTR));
-        pallet1Label->setText(QApplication::translate("MainWindow", "Inside of \n"
-" designated \n"
-" area", Q_NULLPTR));
-        pallet2Label->setText(QApplication::translate("MainWindow", "Outside of \n"
-" designated \n"
-" area", Q_NULLPTR));
     } // retranslateUi
 
 };
