@@ -46,7 +46,7 @@ void MainWindow::on_findPallet_clicked()
 }
 
 void MainWindow::getDataForDevice(QString deviceID){
-    request.setUrl(QUrl(apiHost+QString("query/")+deviceID+QString("?last=2d")));
+    request.setUrl(QUrl(apiHost+QString("query/")+deviceID+QString("?last=7d")));
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
     request.setRawHeader("Authorization",apiKey);
     reply=manager->get(request);
