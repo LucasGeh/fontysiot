@@ -34,7 +34,7 @@ app.get('/api/v2/devices', function (req, res) {
         let returnObject = {};
         for (let i = 0; i < result.length; i++) {
             //console.log(result[i].name);
-            returnObject["device-" + i] = result[i].name;
+            returnObject["device-<" + i] = result[i].name;
         }
         console.log(returnObject);
         res.writeHead(200, { "Content-Type": "application/json"});

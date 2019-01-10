@@ -44,17 +44,3 @@ exports.insert = function (object) {
         console.log('Todo Id:' + results.insertId);
     });
 }
-
-exports.getLatestPostition = async function (device_name) {
-    let queryStmt = `SELECT gps.longitude, gps.latitude FROM iotdatabase.gps_data as gps, iotdatabase.devices as dev
-    WHERE (SELECT max(time) FROM iotdatabase.gps_data) = gps.time AND dev.name = ?`;
-
-    await connection.query(queryStmt, device_name, (err, result, fields) => {
-        let returnObject = {
-            longitude: result[0].longitude,
-            latitude: result[0].latitude
-        }
-        //console.log(returnObject);
-        return returnObject;
-    })
-}

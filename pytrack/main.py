@@ -36,12 +36,12 @@ acc = LIS2HH12()
 acc.enable_activity_interrupt(2000, 300)
 
 if acc.activity():
-    # pycom.rgbled(0xFF0000)
+    py.rgbled(0xFF0000)
     conn.setblocking(True)
     conn.send(gps.getCoordinates())
     conn.setblocking(False)
 else:
-    # pycom.rgbled(0x00FF00)
+    py.rgbled(0x00FF00)
     conn.setblocking(True)
     conn.send(gps.getCoordinates())
     conn.setblocking(False)
