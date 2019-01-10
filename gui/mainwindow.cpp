@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-QString apiHost="https://pytrackpallettracker.data.thethingsnetwork.org/api/v2/";
+QString ttnapiHost="https://pytrackpallettracker.data.thethingsnetwork.org/api/v2/";
+QString apiHost="https://py_ip/api/v2/";
 const char* apiKey="key ttn-account-v2.RyirGD384KbG2Z8Pa9cXQvelvnkwdZyXWaNaf0XLMqs";
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -20,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 void MainWindow::getAvailableTrackers(){
-    request.setUrl(QUrl(apiHost+QString("devices")));
+    request.setUrl(QUrl(ttnapiHost+QString("devices")));
+    //uncomment if using ttnApiHost
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
     request.setRawHeader("Authorization",apiKey);
     reply=manager->get(request);
@@ -46,7 +48,8 @@ void MainWindow::on_findPallet_clicked()
 }
 
 void MainWindow::getDataForDevice(QString deviceID){
-    request.setUrl(QUrl(apiHost+QString("query/")+deviceID+QString("?last=7d")));
+    request.setUrl(QUrl(ttnapiHost+QString("query/")+deviceID+QString("?last=7d")));
+    //uncomment if using ttnApiHost
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
     request.setRawHeader("Authorization",apiKey);
     reply=manager->get(request);
@@ -97,12 +100,6 @@ void MainWindow::on_checkLocationButton_clicked()
 
 bool MainWindow::isInArea(int trackerLat, int trackerLon, int checkLat1,int checkLon1,int checkLat2,int checkLon2){
     if(trackerLat!=NULL && trackerLon!=NULL && checkLat1!=NULL && checkLon1!=NULL && checkLon2!=NULL){
-        qDebug() << trackerLat;
-        qDebug() << trackerLon;
-        qDebug() << checkLat1;
-        qDebug() << checkLon1;
-        qDebug() << checkLat2;
-        qDebug() << checkLon2;
         if(checkLat1>=checkLat2){
             if(checkLon1>=checkLon2){
                 return checkLat2<=trackerLat && trackerLat<=checkLat1 && checkLon2<=trackerLon && trackerLon<=checkLon1;
