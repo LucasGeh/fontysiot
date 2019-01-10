@@ -1,19 +1,25 @@
 from gps import GPS
 import time
 from pytrack import Pytrack
-from connection_abp import Connection
+from connection_otaa import Connection
 from LIS2HH12 import LIS2HH12
 import pycom
 
-conn = Connection('260118E1', 'E0646E0CFD8F7DBF45BAC9E01831A2BF', '22539E2D4177D515BB6510F6349F6957')
+conn = Connection('70B3D57ED0015419', 'CA137963FA80E48A44B17973DED1977A')
 
 py = Pytrack()
 
 gps = GPS(py, 120)
+counter = 0
+while counter < 20:
+    if gps.hasGPS() == True:
+        break
+    else:
+        time.sleep(2)
+        gps.printGPS()
+        counter+=1
 
-while gps.hasGPS() != True:
-    gps.printGPS()
-    time.sleep(10)
+gps.printGPS()
 
 print("Wakeup reason: " + str(py.get_wake_reason()) + "; Aproximate sleep remaining: " + str(py.get_sleep_remaining()) + " sec")
 time.sleep(0.5)
@@ -30,12 +36,12 @@ acc = LIS2HH12()
 acc.enable_activity_interrupt(2000, 300)
 
 if acc.activity():
-    # pycom.rgbled(0xFF0000)
+    py.rgbled(0xFF0000)
     conn.setblocking(True)
     conn.send(gps.getCoordinates())
-    con.setblocking(False)
+    conn.setblocking(False)
 else:
-    # pycom.rgbled(0x00FF00)
+    py.rgbled(0x00FF00)
     conn.setblocking(True)
     conn.send(gps.getCoordinates())
     conn.setblocking(False)

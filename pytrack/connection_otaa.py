@@ -24,6 +24,10 @@ class Connection:
         while not self.Lora.has_joined():
             time.sleep(2.5)
             print('Not yet joined...')
+        # create a LoRa socket
+        self.Socket = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
+        # set the LoRaWAN data rate
+        self.Socket.setsockopt(socket.SOL_LORA, socket.SO_DR, 5)
 
     def setblocking(self, blocking):
         self.Socket.setblocking(blocking)
@@ -31,5 +35,6 @@ class Connection:
     def receive(self):
         return self.Socket.recv(64)
 
-    def send(self):
-        self.Socket.send(bytes([0x01, 0x02, 0x03]))
+    def send(self, coordinates):
+        strCoordinates = str(coordinates)
+        self.Socket.send(strCoordinates)
